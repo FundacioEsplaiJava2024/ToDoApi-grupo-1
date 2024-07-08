@@ -1,4 +1,9 @@
-package com.example.todo_api.model;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name ="todos")
+
 
 public class toDo {
     private Long id;
