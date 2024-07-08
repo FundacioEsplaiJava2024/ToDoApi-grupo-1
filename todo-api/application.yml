@@ -1,0 +1,8 @@
+spring:
+application:
+  name: todoApi
+  thymeleaf:
+    cache: true
+    mode: HTML
+server:
+port: 8080
