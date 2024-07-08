@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "todos")
 
-public class toDo {
+public class ToDo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -22,11 +22,11 @@ public class toDo {
     private String priority;
     private Boolean isDoing;
 
-    public toDo() {
+    public ToDo() {
 
     }
 
-    public toDo(String title, String description, Date dataCreated, Date deadLine, String priority, Boolean isDoing) {
+    public ToDo(String title, String description, Date dataCreated, Date deadLine, String priority, Boolean isDoing) {
         this.title = title;
         this.description = description;
         this.dataCreated = dataCreated;
