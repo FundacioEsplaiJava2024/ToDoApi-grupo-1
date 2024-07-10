@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "todos")
 
-public class toDo {
+public class ToDo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
