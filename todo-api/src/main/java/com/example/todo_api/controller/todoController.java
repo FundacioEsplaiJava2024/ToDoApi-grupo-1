@@ -1,10 +1,16 @@
 package com.example.todo_api.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.todo_api.entity.ToDo;
 import com.example.todo_api.service.TodoService;
@@ -14,29 +20,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 
-@Controller
+@RestController
 @RequestMapping("/todo")
 public class TodoController {
     @Autowired
     private TodoService todoService;
 
-    @GetMapping
-    public String addToDo() {
-        ToDo todo = new ToDo();
-        todoService.getAllTask();
-        
-        return "todo";
+    @GetMapping("/tasks")
+    public ResponseEntity<List<ToDo>>listTask() {
+        List<ToDo> todos = new ArrayList<>();
+        todos = todoService.getAllTask();
+
+        return new ResponseEntity<List<ToDo>>(todos, HttpStatus.OK);
     }
     
+    @PostMapping("/create-task")
+    public ResponseEntity<ToDo> todo(@RequestBody ToDo todo){
+        todoService.addTask(todo);
 
-    @PostMapping
-    public String todo(ToDo toDo){
-        todoService.getAllTask();
-        this.todoService.addTask(toDo);
-
-
-        return "redirect: /todo";
+        return new ResponseEntity<ToDo>(HttpStatus.CREATED);
     }
+
+    
     
     
 }
