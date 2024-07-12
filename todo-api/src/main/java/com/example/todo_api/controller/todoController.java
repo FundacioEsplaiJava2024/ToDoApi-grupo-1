@@ -6,25 +6,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.todo_api.entity.ToDo;
 import com.example.todo_api.service.TodoService;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
 
 
 
 @RestController
 @RequestMapping("/todo")
-public class TodoController {
+public class TodoController{
     @Autowired
     private TodoService todoService;
 
@@ -49,7 +43,17 @@ public class TodoController {
         return ResponseEntity.ok().build();
     }
 
-    
-    
-    
+    @PatchMapping(path = "/edit/{id}", consumes = "application/json-patch+json")
+    public ResponseEntity<ToDo> updateTask(@PathVariable Long id, @RequestBody JsonPatch patch) {
+        try {
+            ToDo toDo = todoService.findTask(id).orElseThrow(() -> new RuntimeException("Task not found"));
+            ToDo patchedToDo = todoService.applyPatchToToDo(patch, toDo);
+            todoService.editTask(id, patchedToDo);
+            return ResponseEntity.ok(patchedToDo);
+        } catch (JsonPatchException | JsonProcessingException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
