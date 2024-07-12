@@ -5,5 +5,4 @@ import com.example.todo_api.entity.ToDo;
 
 @Repository
 public interface TodoRepository extends JpaRepository<ToDo, Long>{
-    ToDo findByName(String name);
 }
