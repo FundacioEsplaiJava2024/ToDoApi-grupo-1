@@ -36,7 +36,7 @@ public class TodoController {
         return new ResponseEntity<List<ToDo>>(todos, HttpStatus.OK);
     }
     
-    @PostMapping("/create-task")
+    @PostMapping("/tasks")
     public ResponseEntity<ToDo> todo(@RequestBody ToDo todo){
         if (todo.getId() != null) {
             return new ResponseEntity<>("No se encuentra ID", HttpStatus.BAD_REQUEST);
