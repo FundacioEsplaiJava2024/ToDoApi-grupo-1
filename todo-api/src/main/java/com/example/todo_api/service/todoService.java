@@ -58,14 +58,14 @@ public class TodoService {
     public void closeTask(Long toDoId) {
         ToDo existingToDo = todoRepository.findById(toDoId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
-        existingToDo.setIsDoing(false);  // Mark as closed
+        existingToDo.setIsDoing( false);  // Mark as closed
         todoRepository.save(existingToDo);
     }
 
     public void reOpenTask(Long toDoId) {
         ToDo existingToDo = todoRepository.findById(toDoId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
-        existingToDo.setIsDoing(true);  // Mark as reopened
+        existingToDo.setIsDoing( true);  // Mark as reopened
         todoRepository.save(existingToDo);
     }
 }
