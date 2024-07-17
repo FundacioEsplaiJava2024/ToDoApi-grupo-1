@@ -56,4 +56,16 @@ public class TodoController{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @PostMapping("/close-tasks/{id}")
+    public ResponseEntity<Void> closeTask(@PathVariable Long id) {
+        todoService.closeTask(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/reopen-tasks/{id}")
+    public ResponseEntity<Void> reOpenTask(@PathVariable Long id) {
+        todoService.reOpenTask(id);
+        return ResponseEntity.noContent().build();
+    }
 }
