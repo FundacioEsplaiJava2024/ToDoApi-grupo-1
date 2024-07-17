@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/todos")
+@RequestMapping("/todo")
 public class TodoController {
     @Autowired
     private TodoService todoService;
@@ -36,26 +36,16 @@ public class TodoController {
         return new ResponseEntity<List<ToDo>>(todos, HttpStatus.OK);
     }
     
-    @PostMapping("/tasks")
+    @PostMapping("/create-task")
     public ResponseEntity<ToDo> todo(@RequestBody ToDo todo){
-        if (todo.getId() != null) {
-            return new ResponseEntity<>("No se encuentra ID", HttpStatus.BAD_REQUEST);
-        }
-        Todo createdToDO = todoService.addTask(todo);
+        todoService.addTask(todo);
 
-        return new ResponseEntity<ToDo>(createdToDO, HttpStatus.CREATED);
+        return new ResponseEntity<ToDo>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/tasks/{id}")
     public ResponseEntity<ToDo> deletetask(@PathVariable("id") Long toDoid){
-        ToDo todo = todoService.getTaskById(toDoid);
-        if (todo == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
         todoService.deleteTask(toDoid);
         return ResponseEntity.ok().build();
     }
-
-    
-    
-    
 }
