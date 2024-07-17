@@ -30,9 +30,8 @@ public class TodoController {
 
     @GetMapping("/tasks")
     public ResponseEntity<List<ToDo>>listTask() {
-        List<ToDo> todos = new ArrayList<>();
-        todos = todoService.getAllTask();
-
+        List<ToDo> todos = todoService.getAllTask();
+        
         return new ResponseEntity<List<ToDo>>(todos, HttpStatus.OK);
     }
     
