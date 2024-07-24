@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.todo_api.entity.ToDo;
-import com.example.todo_api.repository.TodoRepository;
+import com.example.todo_api.repository.ToDoRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.fge.jsonpatch.JsonPatch;
@@ -15,23 +15,23 @@ import com.github.fge.jsonpatch.JsonPatchException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
-public class TodoService {
+public class ToDoService {
     @Autowired
-    private TodoRepository todoRepository;
+    private ToDoRepository toDoRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     public void addTask(ToDo todo) {
-        todoRepository.save(todo);
+        toDoRepository.save(todo);
     }
 
     public List<ToDo> getAllTask() {
-        return todoRepository.findAll();
+        return toDoRepository.findAll();
     }
 
     public void editTask(Long toDoId, ToDo updatedToDo) {
-        ToDo existingToDo = todoRepository.findById(toDoId)
+        ToDo existingToDo = toDoRepository.findById(toDoId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
         existingToDo.settitle(updatedToDo.gettitle());
         existingToDo.setDescription(updatedToDo.getDescription());
@@ -39,15 +39,15 @@ public class TodoService {
         existingToDo.setDeadLine(updatedToDo.getDeadLine());
         existingToDo.setPriority(updatedToDo.getPriority());
         existingToDo.setIsDoing(updatedToDo.getIsDoing());
-        todoRepository.save(existingToDo);
+        toDoRepository.save(existingToDo);
     }
 
     public void deleteTask(Long toDoId) {
-        todoRepository.deleteById(toDoId);
+        toDoRepository.deleteById(toDoId);
     }
 
     public Optional<ToDo> findTask(Long id) {
-        return todoRepository.findById(id);
+        return toDoRepository.findById(id);
     }
 
     public ToDo applyPatchToToDo(JsonPatch patch, ToDo targetToDo) throws JsonPatchException, JsonProcessingException {
@@ -56,16 +56,16 @@ public class TodoService {
     }
 
     public void closeTask(Long toDoId) {
-        ToDo existingToDo = todoRepository.findById(toDoId)
+        ToDo existingToDo = toDoRepository.findById(toDoId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
         existingToDo.setIsDoing( false);  // Mark as closed
-        todoRepository.save(existingToDo);
+        toDoRepository.save(existingToDo);
     }
 
     public void reOpenTask(Long toDoId) {
-        ToDo existingToDo = todoRepository.findById(toDoId)
+        ToDo existingToDo = toDoRepository.findById(toDoId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
         existingToDo.setIsDoing( true);  // Mark as reopened
-        todoRepository.save(existingToDo);
+        toDoRepository.save(existingToDo);
     }
 }

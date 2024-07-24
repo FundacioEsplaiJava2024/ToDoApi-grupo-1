@@ -27,7 +27,7 @@
         <url/>
     </scm>
     <properties>
-        <java.version>22</java.version> <!-- Esta propiedad debe ser compatible con la versión de Spring Boot que estás utilizando -->
+        <java.version>21</java.version> <!-- Esta propiedad debe ser compatible con la versión de Spring Boot que estás utilizando -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
