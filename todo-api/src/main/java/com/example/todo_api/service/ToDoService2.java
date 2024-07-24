@@ -3,19 +3,20 @@ package com.example.todo_api.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.todo_api.entity.ToDo;
-import com.example.todo_api.repository.TodoRepository;
+import com.example.todo_api.entity.ToDo2;
+import com.example.todo_api.repository.ToDoRepository2;
+
 
 @Service
-public class TodoService {
+public class ToDoService2 {
     @Autowired
-    private TodoRepository todoRepository;
+    private ToDoRepository2 todoRepository;
 
-    public void addTask(ToDo todo) {
+    public void addTask(ToDo2 todo) {
         this.todoRepository.save(todo);
     }
 
-    public List<ToDo> getAllTask() {
+    public List<ToDo2> getAllTask() {
         return this.todoRepository.findAll();
     }
 

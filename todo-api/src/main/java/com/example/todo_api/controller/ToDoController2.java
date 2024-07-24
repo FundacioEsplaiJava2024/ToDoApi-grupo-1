@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.todo_api.entity.ToDo;
+import com.example.todo_api.entity.ToDo2;
 import com.example.todo_api.service.TodoService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,27 +25,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/todo")
-public class TodoController {
+public class ToDoController2 {
     @Autowired
     private TodoService todoService;
 
     @GetMapping("/tasks")
-    public ResponseEntity<List<ToDo>>listTask() {
-        List<ToDo> todos = new ArrayList<>();
+    public ResponseEntity<List<ToDo2>>listTask() {
+        List<ToDo2> todos = new ArrayList<>();
         todos = todoService.getAllTask();
 
-        return new ResponseEntity<List<ToDo>>(todos, HttpStatus.OK);
+        return new ResponseEntity<List<ToDo2>>(todos, HttpStatus.OK);
     }
     
     @PostMapping("/create-task")
-    public ResponseEntity<ToDo> todo(@RequestBody ToDo todo){
+    public ResponseEntity<ToDo2> todo(@RequestBody ToDo2 todo){
         todoService.addTask(todo);
 
         return new ResponseEntity<ToDo>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/tasks/{id}")
-    public ResponseEntity<ToDo> deletetask(@PathVariable("id") Long toDoid){
+    public ResponseEntity<ToDo2> deletetask(@PathVariable("id") Long toDoid){
         todoService.deleteTask(toDoid);
         return ResponseEntity.ok().build();
     }
