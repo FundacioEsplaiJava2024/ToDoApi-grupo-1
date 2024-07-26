@@ -22,11 +22,11 @@ public class ToDo {
     private String priority;
     private Boolean isDoing;
 
-    public toDo() {
+    public ToDo() {
 
     }
 
-    public toDo(String title, String description, Date dataCreated, Date deadLine, String priority, Boolean isDoing) {
+    public ToDo(String title, String description, Date dataCreated, Date deadLine, String priority, Boolean isDoing) {
         this.title = title;
         this.description = description;
         this.dataCreated = dataCreated;
